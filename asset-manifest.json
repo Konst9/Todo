@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/Todo/static/js/main.0dd9953b.js",
+    "static/media/logo.svg": "/Todo/static/media/logo.70f0d607014327e3094795b9afe5a8ec.svg",
+    "index.html": "/Todo/index.html",
+    "main.0dd9953b.js.map": "/Todo/static/js/main.0dd9953b.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.0dd9953b.js"
+  ]
+}
