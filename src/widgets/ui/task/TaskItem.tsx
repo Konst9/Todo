@@ -2,6 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { BtnContained, BtnOutline, CheckBox, Input } from '../../../shared';
 import { Wrapper, TaskNameWrapper, BtnControl, TodoText } from "./taskitem.styles";
 import FormControlLabel from '@mui/material/FormControlLabel';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface taskItemProps {
   task: { id: string, text: string, checked: boolean };
@@ -46,8 +48,18 @@ export function TaskItem( { task, onDeleteTask, onCheckTask, onEditTask }: taskI
       )}
       </TaskNameWrapper>
       <BtnControl>
-        <BtnContained BtnText={edit ? "Сохранить" : "Редактировать"} onClick={handleEditTask} />
-        <BtnOutline BtnText="Удалить" onClick={() => onDeleteTask(task.id)} />
+        <BtnContained
+          size="small"
+          startIcon={<EditIcon />}
+          BtnText={edit ? "Сохранить" : "Редактировать"}
+          onClick={handleEditTask}
+        />
+        <BtnOutline
+          size="small"
+          startIcon={<DeleteIcon />}
+          BtnText="Удалить"
+          onClick={() => onDeleteTask(task.id)}
+        />
       </BtnControl>
     </Wrapper>
   );

@@ -3,11 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   Header,
   BtnContained,
-  BtnOutline,
+  FilteredButton,
   Input
 } from '../../shared';
 import { TaskItem } from '../../widgets';
 import { Wrapper, TodoControl, NewTodo, ControlBtn, TodoList, TodoHeader } from './todopages.styles';
+import AddIcon from '@mui/icons-material/Add';
 
 interface Task {
   id: string;
@@ -20,7 +21,7 @@ export function TodoPages() {
     const savedTasks = localStorage.getItem('tasks');
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState<'Все' | 'Активные' | 'Завершенные'>('Все');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -44,9 +45,9 @@ export function TodoPages() {
 
   const filteredTasks = tasks.filter(task => {
     switch (filter) {
-      case 'active':
+      case 'Активные':
         return !task.checked;
-      case 'completed':
+      case 'Завершенные':
         return task.checked;
       default:
         return true;
@@ -69,16 +70,31 @@ export function TodoPages() {
         <TodoControl>
           <NewTodo>
             <Input value={taskText} onChange={handleInputChange}/>
-            <BtnContained BtnText="добавить" onClick={handleAddTask} />
+            <BtnContained size='medium' BtnText="добавить" startIcon={<AddIcon />} onClick={handleAddTask} />
           </NewTodo>
           <ControlBtn>
-            <BtnOutline BtnText="все" onClick={() => setFilter('all')} />
-            <BtnOutline BtnText="активные" onClick={() => setFilter('active')} />
-            <BtnOutline BtnText="завершенные" onClick={() => setFilter('completed')} />
+            <FilteredButton
+              BtnText="все"
+              currentFilter={filter}
+              filter="Все"
+              onClick={() => setFilter('Все')}
+            />
+            <FilteredButton
+              BtnText="Активные"
+              currentFilter={filter}
+              filter="Активные"
+              onClick={() => setFilter('Активные')}
+            />
+            <FilteredButton
+              BtnText="Завершенные"
+              currentFilter={filter}
+              filter="Завершенные"
+              onClick={() => setFilter('Завершенные')}
+            />
           </ControlBtn>
         </TodoControl>
         <TodoList>
-          <TodoHeader>Задачи</TodoHeader>
+          <TodoHeader>{filter} задачи: {filteredTasks.length}</TodoHeader>
           {filteredTasks.map((task) => (
             <TaskItem
               key={task.id}

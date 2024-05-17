@@ -2,9 +2,11 @@
   "name": "todo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://konst9.github.io/Todo",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.17",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -14,14 +16,14 @@
     "uuid": "^9.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .ts,.tsx",
-    "lint:fix": "npm run lint -- --fix",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
+    "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
     "extends": [

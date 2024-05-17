@@ -29,7 +29,7 @@ export function Input( { value, onChange }: InputProps ) {
   return (
     <div>
       <StyledTextField
-        label="New todo..."
+        label="Новая заметка..."
         id="outlined-size-small"
         size="small"
         value={value}

@@ -13,6 +13,7 @@ export function CheckBox( {checked, onChange} : CheckBoxProps ) {
       <Checkbox
         checked={checked}
         onChange={onChange}
+        size="small"
         sx={{
           color: teal[800],
           '&.Mui-checked': {

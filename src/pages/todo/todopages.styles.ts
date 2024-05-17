@@ -25,11 +25,11 @@ export const ControlBtn = styled.div`
 export const TodoList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 `
 
 export const TodoHeader = styled.span`
-  font-size: 48px;
+  font-size: 32px;
   color: teal;
-  font-weight: 500;
+  font-weight: 700;
 `
