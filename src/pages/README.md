@@ -1,4 +1,4 @@
-# PAGES
+# pages(страницы)
 
-Contains page components. Each page component is associated with a route.
+композиционный слой для сборки полноценных страниц из сущностей, фич и виджетов.
 

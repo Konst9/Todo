@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from "../../app/icons/logo.svg";
+import logo from "../../../app/icons/logo.svg";
 import { HBlock, LogoBlock, Logo, AuthBlock, Text } from "./header.styles";
 
 export function Header() {
