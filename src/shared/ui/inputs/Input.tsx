@@ -27,14 +27,12 @@ const StyledTextField = styled(TextField)({
 export function Input( { value, onChange }: InputProps ) {
 
   return (
-    <div>
-      <StyledTextField
-        label="Новая заметка..."
-        id="outlined-size-small"
-        size="small"
-        value={value}
-        onChange={onChange}
-      />
-    </div>
+    <StyledTextField
+      label="Новая заметка..."
+      id="outlined-size-small"
+      size="small"
+      value={value}
+      onChange={onChange}
+    />
   );
 }

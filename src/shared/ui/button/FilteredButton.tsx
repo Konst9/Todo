@@ -1,5 +1,5 @@
 import React from 'react';
-import { BtnContained, BtnOutline } from '../../index';
+import { BtnTeal } from './BtnTeal';
 
 interface FilterButtonProps {
   BtnText: string;
@@ -10,8 +10,8 @@ interface FilterButtonProps {
 
 export function FilteredButton({ BtnText, currentFilter, filter, onClick }: FilterButtonProps) {
   return currentFilter === filter ? (
-    <BtnContained BtnText={BtnText} onClick={onClick} />
+    <BtnTeal variant="contained" BtnText={BtnText} onClick={onClick} />
   ) : (
-    <BtnOutline BtnText={BtnText} onClick={onClick} />
+    <BtnTeal variant="outlined" BtnText={BtnText} onClick={onClick} />
   );
 }

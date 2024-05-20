@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
 `
 export const TodoControl = styled.div`
   display: flex;

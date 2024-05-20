@@ -1,11 +1,11 @@
 import React from 'react';
 import { SApp } from "./styles/app.styles";
-import { TodoPages } from '../pages';
+import { TodosPage } from '../pages';
 
 function App() {
   return (
     <SApp>
-      <TodoPages />
+      <TodosPage />
     </SApp>
   );
 }

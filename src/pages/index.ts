@@ -1,1 +1,1 @@
-export { TodoPages } from "./todo/TodoPages";
+export { TodosPage } from "../pages/todo/TodosPage";

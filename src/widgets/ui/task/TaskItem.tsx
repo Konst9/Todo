@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { BtnContained, BtnOutline, CheckBox, Input } from '../../../shared';
+import React, { ChangeEvent, useState } from 'react';
+import { BtnTeal, CheckBox, Input } from '../../../shared';
 import { Wrapper, TaskNameWrapper, BtnControl, TodoText } from "./taskitem.styles";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -12,12 +12,10 @@ interface taskItemProps {
   onEditTask: (id: string, newText: string) => void;
 }
 export function TaskItem( { task, onDeleteTask, onCheckTask, onEditTask }: taskItemProps ) {
-  const [edit, setEdit] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [taskText, setTaskText] = useState(task.text);
 
-  useEffect(() => {
-    setTaskText(task.text);
-  },[task.text]);
+  // setTaskText(task.text);
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
     onCheckTask(task.id, e.target.checked);
   }
@@ -26,16 +24,16 @@ export function TaskItem( { task, onDeleteTask, onCheckTask, onEditTask }: taskI
   }
 
   const handleEditTask = () => {
-    if (edit) {
+    if (isEditing) {
       onEditTask(task.id, taskText);
     }
-    setEdit(!edit);
+    setIsEditing(!isEditing);
   };
 
   return (
     <Wrapper>
       <TaskNameWrapper>
-        {edit ? (
+        {isEditing ? (
           <Input value={taskText} onChange={handleInputChange}/>
           ) : (
           <>
@@ -48,13 +46,15 @@ export function TaskItem( { task, onDeleteTask, onCheckTask, onEditTask }: taskI
       )}
       </TaskNameWrapper>
       <BtnControl>
-        <BtnContained
+        <BtnTeal
+          variant='contained'
           size="small"
           startIcon={<EditIcon />}
-          BtnText={edit ? "Сохранить" : "Редактировать"}
+          BtnText={isEditing ? "Сохранить" : "Редактировать"}
           onClick={handleEditTask}
         />
-        <BtnOutline
+        <BtnTeal
+          variant="outlined"
           size="small"
           startIcon={<DeleteIcon />}
           BtnText="Удалить"

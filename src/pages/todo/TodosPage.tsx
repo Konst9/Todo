@@ -1,27 +1,28 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Header,
-  BtnContained,
   FilteredButton,
-  Input
 } from '../../shared';
-import { TaskItem } from '../../widgets';
-import { Wrapper, TodoControl, NewTodo, ControlBtn, TodoList, TodoHeader } from './todopages.styles';
-import AddIcon from '@mui/icons-material/Add';
+import { TaskItem, NewTask } from '../../widgets';
+import { Wrapper, TodoControl, ControlBtn, TodoList, TodoHeader } from './todopages.styles';
 
 interface Task {
   id: string;
   text: string;
   checked: boolean;
 }
-export function TodoPages() {
-  const [taskText, setTaskText] = useState('');
+
+enum FilterItem {
+  ALL = 'Все',
+  ACTIVE = 'Активные',
+  CLOSED = 'Завершенные'
+}
+export function TodosPage() {
   const [tasks, setTasks] = useState<Task[]>(() => {
     const savedTasks = localStorage.getItem('tasks');
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
-  const [filter, setFilter] = useState<'Все' | 'Активные' | 'Завершенные'>('Все');
+  const [filter, setFilter] = useState<FilterItem>(FilterItem.ALL);
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -29,13 +30,13 @@ export function TodoPages() {
 
   const handleCheck = useCallback((id: string, checked: boolean) => {
     setTasks(prevTasks =>
-      prevTasks.map(task => task.id === id ? { ...task, checked } : task)
+        prevTasks.map(task => task.id === id ? { ...task, checked } : task)
     );
   }, []);
 
   const handleEditTask = useCallback((id: string, newText: string) => {
     setTasks(prevTasks =>
-      prevTasks.map(task => task.id === id ? { ...task, text: newText } : task)
+        prevTasks.map(task => task.id === id ? { ...task, text: newText } : task)
     );
   }, []);
 
@@ -45,65 +46,53 @@ export function TodoPages() {
 
   const filteredTasks = tasks.filter(task => {
     switch (filter) {
-      case 'Активные':
+      case FilterItem.ACTIVE:
         return !task.checked;
-      case 'Завершенные':
+      case FilterItem.CLOSED:
         return task.checked;
       default:
         return true;
     }
   });
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTaskText(e.target.value)
-  }
 
-  const handleAddTask = () => {
-    if(taskText.trim() !== '') {
-      setTasks([...tasks, { id: uuidv4(), text: taskText, checked: false }]);
-      setTaskText('');
-    }
-  }
   return (
     <div>
       <Header />
       <Wrapper>
+        <NewTask tasks={tasks} setTasks={setTasks} />
         <TodoControl>
-          <NewTodo>
-            <Input value={taskText} onChange={handleInputChange}/>
-            <BtnContained size='medium' BtnText="добавить" startIcon={<AddIcon />} onClick={handleAddTask} />
-          </NewTodo>
           <ControlBtn>
             <FilteredButton
               BtnText="все"
               currentFilter={filter}
               filter="Все"
-              onClick={() => setFilter('Все')}
+              onClick={() => setFilter(FilterItem.ALL)}
             />
             <FilteredButton
               BtnText="Активные"
               currentFilter={filter}
               filter="Активные"
-              onClick={() => setFilter('Активные')}
+              onClick={() => setFilter(FilterItem.ACTIVE)}
             />
             <FilteredButton
               BtnText="Завершенные"
               currentFilter={filter}
               filter="Завершенные"
-              onClick={() => setFilter('Завершенные')}
+              onClick={() => setFilter(FilterItem.CLOSED)}
             />
           </ControlBtn>
         </TodoControl>
         <TodoList>
           <TodoHeader>{filter} задачи: {filteredTasks.length}</TodoHeader>
-          {filteredTasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onDeleteTask={handleDeleteTask}
-              onCheckTask={handleCheck}
-              onEditTask={handleEditTask}
-            />
-          ))}
+            {filteredTasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                onDeleteTask={handleDeleteTask}
+                onCheckTask={handleCheck}
+                onEditTask={handleEditTask}
+              />
+            ))}
         </TodoList>
       </Wrapper>
     </div>
